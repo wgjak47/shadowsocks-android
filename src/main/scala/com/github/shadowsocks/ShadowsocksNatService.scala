@@ -214,7 +214,7 @@ class ShadowsocksNatService extends Service with BaseService {
         , "-u"
         , "-t" , "10"
         , "-b" , "127.0.0.1"
-        , "-L" , "8.8.8.8:53"
+        , "-L" , "10.254.253.1:53"
         , "-c" , Path.BASE + "ss-tunnel-nat.conf"
         , "-f" , Path.BASE + "ss-tunnel-nat.pid")
 
@@ -239,7 +239,7 @@ class ShadowsocksNatService extends Service with BaseService {
         , "-t" , "10"
         , "-b" , "127.0.0.1"
         , "-l" , "8163"
-        , "-L" , "8.8.8.8:53"
+        , "-L" , "10.254.253.1:53"
         , "-c" , Path.BASE + "ss-tunnel-nat.conf"
         , "-f" , Path.BASE + "ss-tunnel-nat.pid")
 
