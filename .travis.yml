@@ -1,40 +1,39 @@
-
 language: scala
-
 sudo: false
-
 addons:
-    apt:
-        packages:
-            - gcc-multilib
-            - g++-multilib
-            - libstdc++6:i386
-            - libgcc1:i386
-            - zlib1g:i386
-            - libncurses5:i386
-
+  apt:
+    packages:
+    - gcc-multilib
+    - g++-multilib
+    - libstdc++6:i386
+    - libgcc1:i386
+    - zlib1g:i386
+    - libncurses5:i386
 scala:
-    - 2.11.7
-
+- 2.11.7
 before_cache:
-    - find $HOME/.sbt -name "*.lock" | xargs rm
-    - find $HOME/.ivy2 -name "*.lock" | xargs rm
-
+- find $HOME/.sbt -name "*.lock" | xargs rm
+- find $HOME/.ivy2 -name "*.lock" | xargs rm
 cache:
-    directories:
-        - $HOME/.android
-        - $HOME/.ivy2/cache
-        - $HOME/.sbt/boot
-
+  directories:
+  - $HOME/.android
+  - $HOME/.ivy2/cache
+  - $HOME/.sbt/boot
 before_install:
-    - ./travis-ci/setup.sh
-    - export NDK_CCACHE=ccache
-    - export ARCH=`uname -m`
-    - export ANDROID_NDK_HOME=$HOME/.android/android-ndk-r10d
-    - export ANDROID_HOME=$HOME/.android/android-sdk-linux
-    - export PATH=${ANDROID_NDK_HOME}:${ANDROID_HOME}/tools:${ANDROID_HOME}/platform-tools:${PATH}
-    - cp local.properties.travis local.properties
-
+- ./travis-ci/setup.sh
+- export NDK_CCACHE=ccache
+- export ARCH=`uname -m`
+- export ANDROID_NDK_HOME=$HOME/.android/android-ndk-r10d
+- export ANDROID_HOME=$HOME/.android/android-sdk-linux
+- export PATH=${ANDROID_NDK_HOME}:${ANDROID_HOME}/tools:${ANDROID_HOME}/platform-tools:${PATH}
+- cp local.properties.travis local.properties
 script:
-    - ./build.sh > /dev/null
-    - sbt android:package-release
+- ./build.sh > /dev/null
+- sbt android:package-release
+deploy:
+  provider: releases
+  api_key:
+    secure: hWgmlKa9YEFSWB9ht9jZDrlen/mIhonOHzlnnbSiYAX/LWCD03NOz+CrKgjrLratC3TLHgW9Oq/39HRgN9WMTpTI/DH5qXcEJIOrSVKXhVb/m29oA7XxXpQrVlSZ9wGa4ubq+AKSc0J+W0Y6fNBKjbo9LXWpRq4SCWk5vpXTGapdHUxJeQHs0a134yeltHvKsRoUCFfJeFIFEKoIDJX9Id7dedvU0i2rN5ORvQHsrEvPFH+7Cp0hbgjTYHrmh9Z0eHIhrrt0CLcX5cnu37bMhp04bBSDlFch0gyUsv/8QmWrDs5vqszbtj9jmpGqzjwueA/8WL2gOkdb53STKV0ZYN4i44hL1gBOaqHaLS7ECsvvdtjjNmzE/crNDwnTyY8B7FD1ksMAqITXvcCcE055OJej1XS2Na5TCU3GcZ0Gkcx/nhkmoYI/d4m73C0JsVS9QvY00gWm6/ltDydJWHbnhZB1CaWGxxb5IDMvsWeITxPmIt6/BmzMAwmOdwYd+sttG93o7Nph9t9VezSx8hQrKraQMFXkr13Ru5K2YY20D4ABX21wQcCQ6zKlx/qzbAfJh2THdufJABil4Y9BbQf4HLAPc3sQl9XZRFfpijxeMSSYOUqHK30JX04KjyxaEor0fkw1uuX/xPaP0xzbJueyhSt1UHgj1CTVAqlEZ3d2fUQ=
+  file: shadowsocks-release-unaligned.apk
+  on:
+    repo: wgjak47/shadowsocks-android
