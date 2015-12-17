@@ -37,4 +37,5 @@ deploy:
   file: shadowsocks-release-unaligned.apk
   skip_cleanup: true
   on:
+    tags: true
     repo: wgjak47/shadowsocks-android
