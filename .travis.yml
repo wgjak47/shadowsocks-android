@@ -31,7 +31,7 @@ script:
 - ./build.sh > /dev/null
 - sbt android:package-release
 before_deploy:
-- ls
+- find . -name "*.apk"
 deploy:
   provider: releases
   api_key:
