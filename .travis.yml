@@ -30,6 +30,8 @@ before_install:
 script:
 - ./build.sh > /dev/null
 - sbt android:package-release
+before_deploy:
+- ls
 deploy:
   provider: releases
   api_key:
